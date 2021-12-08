@@ -12,6 +12,14 @@ p {
 img {
   display: block;
   width: 100%;
+  height: 100%;
+}
+
+.search-form {
+  padding: 10px;
+  width: 400px;
+  margin: 0 auto;
+  margin-bottom: 25px;
 }
 
 .gallery {
@@ -19,19 +27,25 @@ img {
   flex-wrap: wrap;
 }
 .photo-card {
-  max-width: 270px;
+  width: 270px;
   margin: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  background: #f1f1f1;
 }
 
 .img-wrapper {
   width: 100%;
-  object-fit: cover;
+  height: 180px;
+  margin-bottom: 15px;
+  overflow: hidden;
 }
 
 .info {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 5px;
 }
 
 .info-item {
@@ -42,6 +56,11 @@ img {
 
 b {
   font-size: 14px;
+  text-align: center;
+}
+
+span {
+  text-align: center;
 }
 /* 
 <div class='photo-card'>
