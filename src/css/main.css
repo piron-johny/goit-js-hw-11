@@ -25,6 +25,8 @@ img {
 .gallery {
   display: flex;
   flex-wrap: wrap;
+  max-width: 1450px;
+  margin: 0 auto;
 }
 .photo-card {
   width: 270px;
@@ -32,6 +34,8 @@ img {
   border-radius: 5px;
   overflow: hidden;
   background: #f1f1f1;
+  color: #7c7c7c;
+  text-decoration: none;
 }
 
 .img-wrapper {

@@ -28,7 +28,9 @@
   "dependencies": {
     "axios": "^0.24.0",
     "hbs": "^4.2.0",
+    "infinite-scroll": "^4.0.1",
     "normalize-scss": "^7.0.1",
-    "notiflix": "^3.2.2"
+    "notiflix": "^3.2.2",
+    "simplelightbox": "^2.10.1"
   }
 }
