@@ -9,11 +9,13 @@ const debounce = require('lodash.debounce');
 const form = document.getElementById('search-form');
 const markupBox = document.querySelector('.gallery');
 const loader = document.querySelector('.bounce');
+const arrowTop = document.querySelector('.arrow');
 
 const fetchServises = new FetchImages();
 
 form.addEventListener('submit', onFormSubmit);
 window.addEventListener('scroll', debounce(onFetchToScroll, 200));
+arrowTop.addEventListener('click', onScrollUp)
 
 function onFormSubmit(e) {
   e.preventDefault();
@@ -38,7 +40,11 @@ function render(data) {
 
 function onFetchToScroll() {
   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-
+  if (scrollTop >= 100) {
+    arrowTop.classList.add('show')
+  } else {
+    arrowTop.classList.remove('show')
+  }
   if (scrollTop + clientHeight >= scrollHeight - 5 && hasMoreQuotes(fetchServises.showParams())) {
     showLoader();
     setTimeout(() => {
@@ -79,3 +85,14 @@ function showLoader() {
 function hideLoader() {
   loader.classList.remove('show');
 }
+
+function onScrollUp(e) {
+  e.preventDefault()
+  form.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start',
+  })
+}
+
+
+
