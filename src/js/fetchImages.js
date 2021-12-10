@@ -7,6 +7,7 @@ class FetchImages {
     this.page = 1;
     this.per_page = 40;
     this.total = '';
+    this.totalrenderHits = 0;
   }
 
   async fetchImages() {
@@ -22,13 +23,16 @@ class FetchImages {
           page: this.page,
         },
       });
+
       if (response.data.hits.length === 0) {
         return Notify.failure(
           'Sorry, there are no images matching your search query. Please try again.',
         );
       }
+
       this.incrementPage();
       this.total = response.data.totalHits;
+
       return response.data;
     } catch (error) {
       console.error(error);
@@ -41,6 +45,10 @@ class FetchImages {
 
   set query(newQuery) {
     this.inputValue = newQuery;
+  }
+
+  incrementCountHits(newHits) {
+    this.totalrenderHits += newHits;
   }
 
   incrementPage() {

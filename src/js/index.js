@@ -4,13 +4,12 @@ import markup from '../hbs/markup.hbs';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-const debounce = require('lodash.debounce');
 
+const debounce = require('lodash.debounce');
 const form = document.getElementById('search-form');
 const markupBox = document.querySelector('.gallery');
 const loader = document.querySelector('.bounce');
 const arrowTop = document.querySelector('.arrow');
-
 const fetchServises = new FetchImages();
 
 form.addEventListener('submit', onFormSubmit);
@@ -29,6 +28,7 @@ function onFormSubmit(e) {
     hideLoader();
     render(data.hits);
     lightBox();
+    fetchServises.incrementCountHits(data.hits.length)
     Notify.success(`Hooray! We found ${data.totalHits} images.`);
   });
 }
@@ -45,21 +45,23 @@ function onFetchToScroll() {
   } else {
     arrowTop.classList.remove('show')
   }
-  if (scrollTop + clientHeight >= scrollHeight - 5 && hasMoreQuotes(fetchServises.showParams())) {
+
+  if (scrollTop + clientHeight >= scrollHeight - 5 &&
+    hasMoreQuotes(fetchServises.showParams())
+  ) {
     showLoader();
     setTimeout(() => {
       fetchServises.fetchImages().then(data => {
         render(data.hits);
         lightBox();
+        fetchServises.incrementCountHits(data.hits.length)
         hideLoader();
+
+        if (fetchServises.page * fetchServises.per_page > fetchServises.total) {
+          Notify.info("We're sorry, but you've reached the end of search results.");
+        }
       });
     }, 500);
-  }
-
-  if (!hasMoreQuotes(fetchServises.showParams())) {
-    Notify.info("We're sorry, but you've reached the end of search results.");
-    // window.removeEventListener('scroll', onFetchToScroll);
-    return;
   }
 }
 
@@ -93,6 +95,3 @@ function onScrollUp(e) {
     block: 'start',
   })
 }
-
-
-
