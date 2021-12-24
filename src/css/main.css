@@ -56,6 +56,7 @@ img {
 
 .gallery {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   max-width: 1450px;
   margin: 0 auto;
